@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#03A9F4</color>
+    <color name="colorAccent">#3F51B5</color>
+    <color name="colorMessageContent">#4D8F6969</color>
+    <color name="colorMessageTitle">#3C3F41</color>
+    <!--课程表颜色-->
+    <color name="course_one">#8dc63f</color>
+    <color name="course_two">#fbbd08</color>
+    <color name="course_three">#1cbbb4</color>
+    <color name="course_four">#a5673f</color>
+    <color name="course_five">#0081ff</color>
+    <color name="course_six">#e03997</color>
+    <color name="course_seven">#39b54a</color>
+    <!--墙发送颜色-->
+    <color name="wall_color_one">#8799a3</color>
+    <color name="wall_color_two">#e54d42</color>
+    <color name="wall_color_three">#f37b1d</color>
+    <color name="wall_color_four">#fbbd08</color>
+    <color name="wall_color_five">#8dc63f</color>
+    <color name="wall_color_six">#39b54a</color>
+    <color name="wall_color_seven">#1cbbb4</color>
+    <color name="wall_color_eight">#0081ff</color>
+    <color name="wall_color_nine">#6739b6</color>
+    <color name="wall_color_ten">#9c26b0</color>
+    <color name="wall_color_eleven">#e03997</color>
+    <color name="wall_color_twelve">#a5673f</color>
+    <color name="wall_color_thirteen">#aaaaaa</color>
+    <color name="wall_color_fourteen">#333333</color>
+    //其他颜色
+    <color name="silver">#c0c0c0</color>
+
+</resources>

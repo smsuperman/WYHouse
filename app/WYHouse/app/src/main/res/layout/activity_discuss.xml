@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:orientation="vertical">
+
+
+        <!--墙-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            android:layout_marginTop="10dp">
+
+            <!--文字层-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true">
+
+                <!--最里层-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true">
+
+                    <com.ju.wyhouse.view.RoundImageView
+                        android:id="@+id/discuss_wall_send_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        app:left_bottom_radius="10dp"
+                        app:left_top_radius="10dp"
+                        app:right_bottom_radius="10dp"
+                        app:right_top_radius="10dp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/discuss_wall_send_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="预览文字" />
+
+
+            </RelativeLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/discuss_wall_send_main_cir"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_logo" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/discuss_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="90dp"
+            android:src="@drawable/wall_no_discuss_bg"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discuss_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="9dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:paddingLeft="5dp"
+            android:src="@drawable/ic_svg_inpunt_pen" />
+
+
+        <EditText
+            android:id="@+id/discuss_ed_input_msg"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:hint="这里输入评论内容..."
+            android:paddingLeft="10dp"
+            android:textSize="10dp" />
+
+        <ImageView
+            android:id="@+id/discuss_send_text"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/white"
+            android:paddingLeft="5dp"
+            android:src="@drawable/ic_svg_send_discuss" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+

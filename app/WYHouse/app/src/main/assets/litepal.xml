@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="wyhouse" />
+
+
+    <list>
+        <mapping class="com.ju.wyhouse.db.DbMessageData" />
+        <mapping class="com.ju.wyhouse.db.DbUserData"/>
+    </list>
+
+    <version value="4" />
+
+</litepal>

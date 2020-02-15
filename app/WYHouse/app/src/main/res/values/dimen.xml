@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginSize">16dp</dimen>
+    <dimen name="navBarHeight">50dp</dimen>
+    <dimen name="navBarTitleSize">22sp</dimen>
+    <dimen name="titleSize">18sp</dimen>
+    <dimen name="svg_title_size">17dp</dimen>
+    <dimen name="svg_pic_width">30dp</dimen>
+    <dimen name="svg_pic_height">30dp</dimen>
+    <dimen name="text_size_score">17sp</dimen>
+</resources>

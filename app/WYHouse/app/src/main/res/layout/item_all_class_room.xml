@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_margin="7dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_class_room_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center|start"
+        android:text="教室名字" />
+
+    <ImageView
+        android:id="@+id/item_scoreclass_room_one_two"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/classroom_null" />
+
+    <ImageView
+        android:id="@+id/item_class_room_three_four"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/classroom_null" />
+
+    <ImageView
+        android:id="@+id/item_class_room_five_six"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/classroom_null" />
+
+    <ImageView
+        android:id="@+id/item_class_room_seven_eight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/classroom_null" />
+
+    <ImageView
+        android:id="@+id/item_class_room_nine_ten"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/classroom_null" />
+
+
+</LinearLayout>
