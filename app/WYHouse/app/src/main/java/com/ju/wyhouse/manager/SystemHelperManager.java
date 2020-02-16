@@ -32,7 +32,8 @@ import java.util.Date;
  */
 public class SystemHelperManager {
 
-
+    //PictureSelector标志
+    public static final int REQUEST_PICTURE = 3;
     //相册
     public static final int REQUEST_IMAGE = 1;
     //相机
@@ -101,9 +102,9 @@ public class SystemHelperManager {
 
 
     /**
-     * 通过PictureSelector来选择图片
+     * 通过PictureSelector来选择背景图片
      */
-    public void openPictureSelector(Activity activity) {
+    public void openPictureSelectorBg(Activity activity) {
         PictureSelector.create(activity)
                 .openGallery(PictureMimeType.ofImage())
                 .loadImageEngine(GlideEngine.createGlideEngine())
@@ -112,6 +113,21 @@ public class SystemHelperManager {
                 .compress(true)
                 .maxSelectNum(1)
                 .withAspectRatio(3, 2)
-                .forResult(REQUEST_IMAGE);
+                .forResult(REQUEST_PICTURE);
+    }
+
+    /**
+     * 通过PictureSelector来选择头像
+     */
+    public void openPictureSelectorCir(Fragment fragment) {
+        PictureSelector.create(fragment)
+                .openGallery(PictureMimeType.ofImage())
+                .loadImageEngine(GlideEngine.createGlideEngine())
+                .enableCrop(true)
+                .showCropFrame(true)
+                .compress(true)
+                .maxSelectNum(1)
+                .withAspectRatio(2, 2)
+                .forResult(REQUEST_PICTURE);
     }
 }

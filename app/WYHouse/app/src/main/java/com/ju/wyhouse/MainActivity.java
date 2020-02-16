@@ -1,9 +1,7 @@
 package com.ju.wyhouse;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -11,19 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.ju.wyhouse.application.BaseApplication;
 import com.ju.wyhouse.base.BaseUiActivity;
 import com.ju.wyhouse.fragment.MainFragment;
 import com.ju.wyhouse.fragment.MeFragment;
 import com.ju.wyhouse.fragment.WeFragment;
-import com.ju.wyhouse.manager.SystemHelperManager;
 import com.ju.wyhouse.service.PushIntentService;
 import com.ju.wyhouse.service.PushService;
-import com.ju.wyhouse.utils.FileUtil;
 import com.ju.wyhouse.utils.LogUtil;
 import com.tencent.bugly.Bugly;
 

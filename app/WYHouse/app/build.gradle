@@ -7,8 +7,8 @@ android {
         applicationId "com.ju.wyhouse"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 6
-        versionName "0.6.0"
+        versionCode 7
+        versionName "0.7.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 GETUI_APP_ID    : "YRsmiXrphJ7imqwVtofDz8",
@@ -69,8 +69,8 @@ dependencies {
     //PickerView
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     //bugly升级插件
-    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
     //Banner
     implementation 'com.youth.banner:banner:2.0.0-alpha'
     //BaseRecyclerViewAdapterHelper

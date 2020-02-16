@@ -103,6 +103,7 @@ public class MeInfoActivity extends BaseBackActivity implements View.OnClickList
                     ToastUtil.showToast(MeInfoActivity.this, "更新个人信息成功");
                     //保存昵称数据库
                     DbManager.getInstance().updateMeNickName(updateUserModel.getData().getName());
+                    setResult(RESULT_OK);
                 } else {
                     ToastUtil.showToast(MeInfoActivity.this, "更新个人信息失败，请稍后再试");
                 }

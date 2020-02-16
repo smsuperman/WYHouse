@@ -1,8 +1,8 @@
 package com.ju.wyhouse.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -34,15 +34,17 @@ import com.ju.wyhouse.net.HttpClient;
 import com.ju.wyhouse.net.INetCallback;
 import com.ju.wyhouse.net.NetUrl;
 import com.ju.wyhouse.utils.GlideUtil;
-import com.ju.wyhouse.utils.FileUtil;
 import com.ju.wyhouse.utils.LogUtil;
 import com.ju.wyhouse.utils.SaveAndWriteUtil;
 import com.ju.wyhouse.utils.ToastUtil;
 import com.ju.wyhouse.view.DialogView;
 import com.ju.wyhouse.view.LoadingView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.tencent.bugly.beta.Beta;
 
 import java.io.File;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Request;
@@ -72,8 +74,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private Button double_dialog_no;
     private Button double_dialog_yes;
     private DialogView mPhotoSelectView;
-    private String realPathFromUri = "";
-    private TextView tv_camera;
+    private String cirPath = "";
     private TextView tv_ablum;
     private TextView tv_cancel;
     private LoadingView mLoadingView;
@@ -94,8 +95,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
      */
     private void initPhotoView() {
         mPhotoSelectView = DialogManager.getInstance().initView(getActivity(), R.layout.dialog_select_photo, Gravity.BOTTOM);
-        tv_camera = mPhotoSelectView.findViewById(R.id.tv_camera);
-        tv_camera.setOnClickListener(this);
         tv_ablum = mPhotoSelectView.findViewById(R.id.tv_ablum);
         tv_ablum.setOnClickListener(this);
         tv_cancel = mPhotoSelectView.findViewById(R.id.tv_cancel);
@@ -240,15 +239,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 //头像
                 DialogManager.getInstance().show(mPhotoSelectView);
                 break;
-            case R.id.tv_camera:
-                DialogManager.getInstance().hide(mPhotoSelectView);
-                //跳转到相机
-                SystemHelperManager.getInstance().openCamera(this);
-                break;
             case R.id.tv_ablum:
                 DialogManager.getInstance().hide(mPhotoSelectView);
-                //跳转到相册
-                SystemHelperManager.getInstance().openAblum(this);
+                //更换头像
+                SystemHelperManager.getInstance().openPictureSelectorCir(this);
                 break;
             case R.id.tv_cancel:
                 DialogManager.getInstance().hide(mPhotoSelectView);
@@ -263,17 +257,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
      * 上传头像文件
      */
     private void upLoadCirImage() {
+        Request request = NetUrl.getUpLoadImageFile(new File(cirPath));
         mLoadingView.show();
-        if (TextUtils.isEmpty(realPathFromUri)) {
-            ToastUtil.showToast(getActivity(), "参数有误，请稍后再试");
-            mLoadingView.hide();
-            return;
-        }
-        //首先压缩成Bitmap
-        Bitmap bitmap = FileUtil.decodeBitmapFromFilePath(realPathFromUri, 200, 400);
-        //压缩并转换成File
-        File file = FileUtil.compressImage(bitmap, realPathFromUri);
-        Request request = NetUrl.getUpLoadImageFile(file);
         HttpClient.getInstance().requestToNet(request, new INetCallback() {
             @Override
             public void onSuccess(String response) {
@@ -285,7 +270,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                         //请求用户头像更新
                         requestUpLoadImageUpdate(jsonObject.getString("data"));
                         //上传成功后，清空图片路径
-                        realPathFromUri = "";
+                        cirPath = "";
                         return;
                     }
                 }
@@ -337,20 +322,20 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        LogUtil.i("onActivityResult code：" + requestCode);
-        if (requestCode == SystemHelperManager.REQUEST_IMAGE) {
-            //选择图片
-            if (data != null && data.getData() != null) {
-                realPathFromUri = FileUtil.getRealPathFromUri(getActivity(), data.getData());
-                LogUtil.i("选择图片路径：" + realPathFromUri);
+        LogUtil.i("onActivityResult code：" + resultCode);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SystemHelperManager.REQUEST_PICTURE) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                cirPath = selectList.get(0).getCompressPath();
+                if (TextUtils.isEmpty(cirPath)) {
+                    ToastUtil.showToast(getActivity(), "图片参数有误");
+                    return;
+                }
+                //开始上传头像
                 upLoadCirImage();
+            } else if (requestCode == MeInfoActivity.UPDATE_ME_INFO_FLAG) {
+                initMeInfo();
             }
-        } else if (requestCode == SystemHelperManager.REQUEST_CAMERA) {
-            File file = SystemHelperManager.getInstance().getCameraFile();
-            realPathFromUri = file.getAbsolutePath();
-            upLoadCirImage();
-        } else if (requestCode == MeInfoActivity.UPDATE_ME_INFO_FLAG) {
-            initMeInfo();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

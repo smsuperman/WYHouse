@@ -73,7 +73,7 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
     private EditText send_wall_input_text;
     private Button btn_send_wall;
     //图片路径
-    private String realPathFromUri;
+    private String bgFilePath;
     private LoadingView mLoadingView;
     private String imageUrl;
     private int bgColor = NO_CIR_COLOR_FLAG;
@@ -127,7 +127,7 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
                         //设置背景颜色
                         bgColor = position;
                         //清空选择相册路径
-                        realPathFromUri = "";
+                        bgFilePath = "";
                         wall_send_bg.setImageResource(colorWallList.get(position).getColor());
                     });
                 } else if (type == WALL_CAMERA_TYPE) {
@@ -135,7 +135,7 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
                     viewHolder.setImageResource(R.id.send_wall_cir, R.drawable.img_wall_camera_png);
                     viewHolder.getView(R.id.send_wall_cir).setOnClickListener(v -> {
                         //选择图片
-                        SystemHelperManager.getInstance().openPictureSelector(SendWallActivity.this);
+                        SystemHelperManager.getInstance().openPictureSelectorBg(SendWallActivity.this);
                     });
                 }
             }
@@ -264,7 +264,7 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
         }
         mLoadingView.show();
         //判断要不要上传背景图片
-        if (TextUtils.isEmpty(realPathFromUri)) {
+        if (TextUtils.isEmpty(bgFilePath)) {
             //空的直接开始上传内容
             startToContent();
         } else {
@@ -277,9 +277,8 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
      * 开始上传图片
      */
     private void startToImage() {
-        File file = new File(realPathFromUri);
+        File file = new File(bgFilePath);
         Request request = NetUrl.getUpLoadImageFile(file);
-
         HttpClient.getInstance().requestToNet(request, new INetCallback() {
             @Override
             public void onSuccess(String response) {
@@ -370,13 +369,19 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        LogUtil.i("data:" + data);
-        if (requestCode == SystemHelperManager.REQUEST_IMAGE) {
-            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-            realPathFromUri = selectList.get(0).getCompressPath();
-            GlideUtil.loadFile(this, new File(realPathFromUri), wall_send_bg);
-            //设置完图片清空背景颜色设置
-            bgColor = NO_CIR_COLOR_FLAG;
+        LogUtil.i("resultCode:" + resultCode);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SystemHelperManager.REQUEST_PICTURE) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                bgFilePath = selectList.get(0).getCompressPath();
+                if (TextUtils.isEmpty(bgFilePath)) {
+                    ToastUtil.showToast(SendWallActivity.this, "图片参数有误");
+                    return;
+                }
+                GlideUtil.loadFile(this, new File(bgFilePath), wall_send_bg);
+                //设置完图片清空背景颜色设置
+                bgColor = NO_CIR_COLOR_FLAG;
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
