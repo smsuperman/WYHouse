@@ -31,6 +31,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText login_et_password;
     private Button login_btn_login;
     private TextView login_tv_no_account;
+    private TextView login_find_id;
     private LoadingView mLoadingView;
 
     @Override
@@ -45,8 +46,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         login_et_password = findViewById(R.id.login_et_password);
         login_btn_login = findViewById(R.id.login_btn_login);
         login_tv_no_account = findViewById(R.id.login_tv_no_account);
+        login_find_id = findViewById(R.id.login_find_id);
         login_btn_login.setOnClickListener(this);
         login_tv_no_account.setOnClickListener(this);
+        login_find_id.setOnClickListener(this);
 
         mLoadingView = new LoadingView(this);
         mLoadingView.setText("正在登陆中...");
@@ -76,9 +79,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("登录网络请求错误：" + msg);
-                ToastUtil.showToast(LoginActivity.this, "登录超时，请稍后再试");
+                ToastUtil.showToast(LoginActivity.this, msg);
                 mLoadingView.hide();
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(LoginActivity.this, "网络超时，请稍后再试");
             }
         });
     }
@@ -121,6 +129,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.login_tv_no_account:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                break;
+            case R.id.login_find_id:
+                startActivity(new Intent(LoginActivity.this, FindIdActivity.class));
                 break;
             default:
                 break;

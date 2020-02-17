@@ -26,8 +26,11 @@ public class HttpResult {
                 case Constants.REQUEST_SUCCESS:
                     iNetCallback.onSuccess(msg.obj.toString());
                     break;
-                case Constants.REQUEST_ERROR:
+                case Constants.REQUEST_FAILURE:
                     iNetCallback.onFailure(msg.obj.toString());
+                    break;
+                case Constants.REQUEST_ERROR:
+                    iNetCallback.onError(msg.obj.toString());
                     break;
                 default:
                     break;

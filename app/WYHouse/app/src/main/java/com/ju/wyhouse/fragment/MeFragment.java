@@ -24,6 +24,8 @@ import com.ju.wyhouse.activity.AppInfoActivity;
 import com.ju.wyhouse.activity.LoginActivity;
 import com.ju.wyhouse.activity.MeInfoActivity;
 import com.ju.wyhouse.activity.MessageActivity;
+import com.ju.wyhouse.activity.UpdateJwActivity;
+import com.ju.wyhouse.activity.WelcomeActivity;
 import com.ju.wyhouse.db.DbManager;
 import com.ju.wyhouse.db.DbUserData;
 import com.ju.wyhouse.manager.DialogManager;
@@ -68,6 +70,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout ll_app_info;
     private LinearLayout ll_me_update;
     private LinearLayout ll_me_exit;
+    private LinearLayout ll_bind;
     private DialogView mDialogView;
     private TextView double_dialog_title;
     private TextView double_dialog_message;
@@ -141,6 +144,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         ll_app_info = view.findViewById(R.id.ll_app_info);
         ll_me_exit = view.findViewById(R.id.ll_me_exit);
         ll_me_update = view.findViewById(R.id.ll_me_update);
+        ll_bind = view.findViewById(R.id.ll_bind);
+        ll_bind.setOnClickListener(this);
         me_frag_circle.setOnClickListener(this);
         ll_me_user.setOnClickListener(this);
         ll_me_message.setOnClickListener(this);
@@ -162,30 +167,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
             GlideUtil.loadUrl(getActivity(), dbUserData.getImage(), me_frag_circle);
         }
     }
-
-
-    /**
-     * 获取最新的个人信息
-     */
-    private void updateMeData() {
-        Request request = NetUrl.getFlagIdLoginRequest();
-        HttpClient.getInstance().requestToNet(request, new INetCallback() {
-            @Override
-            public void onSuccess(String response) {
-                LogUtil.i("获取用户信息response：" + response);
-                parsingMeInfoJson(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                LogUtil.e("获取用户信息网络请求错误");
-                ToastUtil.showToast(getActivity(), "获取个人信息超时，请稍后再试");
-                mLoadingView.hide();
-            }
-        });
-
-    }
-
 
     /**
      * 进行解析更新的个人信息
@@ -247,6 +228,9 @@ public class MeFragment extends Fragment implements View.OnClickListener {
             case R.id.tv_cancel:
                 DialogManager.getInstance().hide(mPhotoSelectView);
                 break;
+            case R.id.ll_bind:
+                startActivity(new Intent(getActivity(), UpdateJwActivity.class));
+                break;
             default:
                 break;
         }
@@ -284,6 +268,12 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 ToastUtil.showToast(getActivity(), "上传失败，请稍后再试");
                 mLoadingView.hide();
             }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(getActivity(), "网络超时，请稍后再试");
+            }
         });
     }
 
@@ -315,6 +305,12 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 LogUtil.e("更新头像失败：" + msg);
                 ToastUtil.showToast(getActivity(), "更新头像失败，请稍后再试");
                 mLoadingView.hide();
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(getActivity(), "网络超时，请稍后再试");
             }
         });
     }

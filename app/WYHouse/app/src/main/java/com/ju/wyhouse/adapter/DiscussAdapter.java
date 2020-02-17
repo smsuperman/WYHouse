@@ -135,7 +135,12 @@ public class DiscussAdapter extends BaseQuickAdapter<DiscussModel.DataBean, Base
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("删除评论失败：" + msg);
+                ToastUtil.showToast(mContext, msg);
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
                 ToastUtil.showToast(mContext, "网络超时，请稍后再试");
             }
         });

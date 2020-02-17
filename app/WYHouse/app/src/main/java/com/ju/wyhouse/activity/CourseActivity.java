@@ -157,7 +157,12 @@ public class CourseActivity extends BaseBackActivity implements View.OnClickList
             @Override
             public void onFailure(String msg) {
                 mLoadingView.hide();
-                LogUtil.e("查询课程表网络获取失败：" + msg);
+                ToastUtil.showToast(CourseActivity.this, msg);
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
                 ToastUtil.showToast(CourseActivity.this, "网络超时，请稍后再试");
             }
         });

@@ -81,7 +81,16 @@ public class WelcomeActivity extends BaseUiActivity {
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("网络超时，请稍后再试：" + msg);
+                //删除数据库
+                DbManager.getInstance().removeMeUser();
+                SaveAndWriteUtil.removeFlagIdAndCookie();
+                ToastUtil.showToast(WelcomeActivity.this, msg);
+                startLoginActivity();
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
                 ToastUtil.showToast(WelcomeActivity.this, "网络超时，请稍后再试");
             }
         });
@@ -97,20 +106,13 @@ public class WelcomeActivity extends BaseUiActivity {
     private void parsingLoginResultJson(String response) {
         UserModel userModel = JSON.parseObject(response, new TypeReference<UserModel>() {
         });
-        LogUtil.i("登录用户response：" + response);
-        if (userModel.getCode() == 0 && userModel.getData() != null) {
-            //更新数据库
-            DbManager.getInstance().updateMeUser(userModel);
-            SaveAndWriteUtil.saveCookie(userModel.getCookie());
-            SaveAndWriteUtil.saveFlag(userModel.getData().getWswFlag());
-            startMainActivity();
-        } else {
-            ToastUtil.showToast(WelcomeActivity.this, "登录失效，请重新登录");
-            //删除数据库
-            DbManager.getInstance().removeMeUser();
-            SaveAndWriteUtil.removeFlagIdAndCookie();
-            startLoginActivity();
-        }
+
+        //更新数据库
+        DbManager.getInstance().updateMeUser(userModel);
+        SaveAndWriteUtil.saveCookie(userModel.getCookie());
+        SaveAndWriteUtil.saveFlag(userModel.getData().getWswFlag());
+        startMainActivity();
+
     }
 
 

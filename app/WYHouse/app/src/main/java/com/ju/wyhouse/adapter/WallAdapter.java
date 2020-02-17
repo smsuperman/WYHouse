@@ -174,6 +174,12 @@ public class WallAdapter extends BaseQuickAdapter<WallDataModel, BaseViewHolder>
                 ToastUtil.showToast(mContext, "网络超时，请稍后再试");
                 mLoadingView.hide();
             }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(mContext, "网络超时，请稍后再试");
+            }
         });
     }
 

@@ -1,5 +1,6 @@
 package com.ju.wyhouse.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -29,6 +30,7 @@ public class RegisterActivity extends BaseBackActivity implements View.OnClickLi
     private EditText register_et_password_wy;
     private EditText register_et_password_wy_two;
     private Button register_btn_register;
+    private TextView register_tv_no_jy_account;
     private DialogView mDialogView;
     //dialog
     private LoadingView mLoadingView;
@@ -44,6 +46,7 @@ public class RegisterActivity extends BaseBackActivity implements View.OnClickLi
     }
 
     private void initView() {
+        getSupportActionBar().setTitle("注册");
         mLoadingView = new LoadingView(this);
         mLoadingView.setText("注册中...");
         register_et_account = findViewById(R.id.register_et_account);
@@ -51,7 +54,8 @@ public class RegisterActivity extends BaseBackActivity implements View.OnClickLi
         register_et_password_wy = findViewById(R.id.register_et_password_wy);
         register_et_password_wy_two = findViewById(R.id.register_et_password_wy_two);
         register_btn_register = findViewById(R.id.register_btn_register);
-
+        register_tv_no_jy_account = findViewById(R.id.register_tv_no_jy_account);
+        register_tv_no_jy_account.setOnClickListener(this);
         register_btn_register.setOnClickListener(this);
         //初始化dialog
         mDialogView = DialogManager.getInstance().initView(this, R.layout.dialog_single_result, Gravity.BOTTOM);
@@ -73,6 +77,9 @@ public class RegisterActivity extends BaseBackActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.register_btn_register:
                 StartRegister();
+                break;
+            case R.id.register_tv_no_jy_account:
+                startActivity(new Intent(this, ForgetJwActivity.class));
                 break;
             default:
                 break;
@@ -110,9 +117,15 @@ public class RegisterActivity extends BaseBackActivity implements View.OnClickLi
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("注册网络请求错误：" + msg);
+                ToastUtil.showToast(RegisterActivity.this, msg);
                 mLoadingView.hide();
-                ToastUtil.showToast(RegisterActivity.this, "注册网络请求错误");
+            }
+
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(RegisterActivity.this, "网络超时，请稍后再试");
             }
         });
     }
@@ -125,17 +138,11 @@ public class RegisterActivity extends BaseBackActivity implements View.OnClickLi
      */
     private void jsonParsing(String response) {
         JSONObject jsonObject = JSON.parseObject(response);
-        int code = jsonObject.getInteger("code");
-        //-7代表注册失败
-        if (code != 0) {
-            ToastUtil.showToast(this, "注册失败，请检查学号和密码是否正确");
-            return;
-        }
         //成功继续解析
         JSONObject data = jsonObject.getJSONObject("data");
         //获取注册id
         int id = data.getInteger("id");
-        single_dialog_message.setText("注册成功！万事屋登录id为" + id + "，请牢记您的登录ID");
+        single_dialog_message.setText("注册成功！万事屋登录id为" + id + "，请牢记您的登录ID，建议截图保存");
         DialogManager.getInstance().show(mDialogView);
     }
 

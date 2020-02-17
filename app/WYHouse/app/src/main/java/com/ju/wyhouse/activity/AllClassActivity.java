@@ -102,9 +102,14 @@ public class AllClassActivity extends BaseBackActivity implements View.OnClickLi
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("查询空教室网络获取失败：" + msg);
                 mLoadingView.hide();
-                ToastUtil.showToast(AllClassActivity.this, "查询空教室网络获取失败");
+                ToastUtil.showToast(AllClassActivity.this, msg);
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(AllClassActivity.this, "网络超时，请稍后再试");
             }
         });
     }

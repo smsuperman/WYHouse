@@ -21,6 +21,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ju.wyhouse.R;
 import com.ju.wyhouse.activity.SendWallActivity;
+import com.ju.wyhouse.activity.WallActivity;
 import com.ju.wyhouse.adapter.WallAdapter;
 import com.ju.wyhouse.db.DbManager;
 import com.ju.wyhouse.model.WallDataModel;
@@ -92,6 +93,12 @@ public class WeFragment extends Fragment implements View.OnClickListener, SwipeR
                 ToastUtil.showToast(getActivity(), "网络超时，请稍后再试");
                 wall_refresh.setRefreshing(false);
                 mLoadingView.hide();
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(getActivity(), "网络超时，请稍后再试");
             }
         });
     }

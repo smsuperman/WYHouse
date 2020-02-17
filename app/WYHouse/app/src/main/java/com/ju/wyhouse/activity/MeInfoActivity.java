@@ -112,9 +112,14 @@ public class MeInfoActivity extends BaseBackActivity implements View.OnClickList
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("更新失败：" + msg);
-                ToastUtil.showToast(MeInfoActivity.this, "更新头像失败，请稍后再试");
+                ToastUtil.showToast(MeInfoActivity.this, msg);
                 mLoadingView.hide();
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(MeInfoActivity.this, "网络超时，请稍后再试");
             }
         });
 

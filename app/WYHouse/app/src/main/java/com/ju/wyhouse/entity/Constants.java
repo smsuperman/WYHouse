@@ -21,8 +21,10 @@ public class Constants {
     public static final int REQUEST_POST = 1;
     //网络请求成功
     public static final int REQUEST_SUCCESS = 2;
-    //网路请求错误
-    public static final int REQUEST_ERROR = 3;
+    //网络结果错误
+    public static final int REQUEST_FAILURE = 3;
+    //网络连接失败
+    public static final int REQUEST_ERROR = 5;
     //首页FLAG
     public static final int SKIP_FLAG = 4;
     //SP数据库名字

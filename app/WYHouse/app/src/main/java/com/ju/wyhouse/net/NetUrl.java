@@ -24,11 +24,11 @@ public class NetUrl {
     //头flag
     private static final String HEAD_FLAG = "Wsw-Flag";
     //主字段
-    private static final String BASE_URL = "https://www.wywsw.com";
+    public static final String BASE_URL = "https://www.wywsw.com";
     //登录字段
     private static final String LOGIN_URL = "/user/loginAppByUser";
     //注册字段
-    private static final String REGISTER_URL = "/user/registerApp";
+    public static final String REGISTER_URL = "/user/registerApp";
     //flag登录
     private static final String FLAG_URL = "/user/loginApp";
     //成绩字段
@@ -67,6 +67,12 @@ public class NetUrl {
     private static final String DEL_WALL_DISCUSS_URL = "/wall/delComment";
     //上传头像字段
     private static final String UP_LOAD_CIR_OR_NAME_URL = "/user/inofoUpdate";
+    //重置教务处密码字段
+    private static final String FORGET_JW_URL = "/user/findJwPwd";
+    //更新教务处字段
+    public static final String UPDATE_JW_URL = "/user/upJwInfo";
+    //找回万事屋ID字段
+    private static final String FIND_ID_URL = "https://wywsw.com:9000/findIdByJwUser";
 
 
     //注册Request
@@ -287,5 +293,39 @@ public class NetUrl {
         map.put("name", name);
         return HttpRequest.getInstance().createRequestParams(BASE_URL + UP_LOAD_CIR_OR_NAME_URL,
                 Constants.REQUEST_GET, null, map);
+    }
+
+    //重置教务处
+    public static Request getForgetJwAccountRequest(String account, String bodyNumber) {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", account);
+        map.put("sfzhm", bodyNumber);
+        return HttpRequest.getInstance()
+                .createRequestParams(BASE_URL + FORGET_JW_URL, Constants.REQUEST_GET, null, map);
+    }
+
+
+    /**
+     * 绑定教务处密码
+     *
+     * @param jwUser
+     * @param jwPassword
+     * @return
+     */
+    public static Request getUpdateAccountRequest(String jwUser, String jwPassword) {
+        Map<String, String> map = new HashMap<>();
+        map.put(HEAD_FLAG, SaveAndWriteUtil.getFlagId());
+        map.put("jwUser", jwUser);
+        map.put("jwPassword", jwPassword);
+        return HttpRequest.getInstance()
+                .createRequestParams(BASE_URL + UPDATE_JW_URL, Constants.REQUEST_GET, null, map);
+    }
+
+
+    public static Request getFindIdRequest(String account) {
+        Map<String, String> map = new HashMap<>();
+        map.put("jwUser", account);
+        return HttpRequest.getInstance()
+                .createRequestParams(FIND_ID_URL, Constants.REQUEST_GET, null, map);
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/register_et_account"
+            android:id="@+id/jw_et_account"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="5dp"
@@ -20,48 +20,31 @@
             android:singleLine="true" />
 
         <EditText
-            android:id="@+id/register_et_password"
+            android:id="@+id/jw_et_body_number"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="教务处密码"
-            android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/register_et_password_wy"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="您自己定义的万事屋密码"
-            android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/register_et_password_wy_two"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="再次输入万事屋密码"
+            android:hint="身份证号码"
             android:inputType="textPassword" />
 
     </LinearLayout>
 
 
     <Button
-        android:id="@+id/register_btn_register"
+        android:id="@+id/jw_btn_remake"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/btn_background"
-        android:text="绑定并注册"
+        android:text="重置"
         android:textColor="@android:color/white"
         android:textSize="20dp" />
 
-
     <TextView
-        android:id="@+id/register_tv_no_jy_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="忘记教务处密码？点击这里找回"
-        android:textColor="@color/colorPrimary"
-        android:textSize="15dp" />
-
+        android:text="重置成功后教务处密码将重置为身份证后6位"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="17dp" />
 
 </LinearLayout>

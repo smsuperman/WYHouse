@@ -264,6 +264,13 @@ public class ScoreActivity extends BaseBackActivity implements View.OnClickListe
                 ToastUtil.showToast(ScoreActivity.this, "网络超时，请稍后再试");
                 mLoadingView.hide();
             }
+
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(ScoreActivity.this, "网络超时，请稍后再试");
+            }
         });
 
     }
@@ -325,6 +332,12 @@ public class ScoreActivity extends BaseBackActivity implements View.OnClickListe
                 ToastUtil.showToast(ScoreActivity.this, "查询成绩网络请求失败");
                 mLoadingView.hide();
             }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(ScoreActivity.this, "网络超时，请稍后再试");
+            }
         });
     }
 
@@ -370,8 +383,14 @@ public class ScoreActivity extends BaseBackActivity implements View.OnClickListe
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("查询总分绩点网络请求失败：" + msg);
-                ToastUtil.showToast(ScoreActivity.this, "查询成绩网络请求失败");
+                ToastUtil.showToast(ScoreActivity.this, msg);
+            }
+
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(ScoreActivity.this, "网络超时，请稍后再试");
             }
         });
     }

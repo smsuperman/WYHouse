@@ -288,9 +288,14 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("上墙图片上传失败：" + msg);
-                ToastUtil.showToast(SendWallActivity.this, "发布失败，请稍后再试");
+                ToastUtil.showToast(SendWallActivity.this, msg);
                 mLoadingView.hide();
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(SendWallActivity.this, "网络超时，请稍后再试");
             }
         });
     }
@@ -342,9 +347,15 @@ public class SendWallActivity extends BaseBackActivity implements View.OnClickLi
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("上墙发布失败：" + msg);
-                ToastUtil.showToast(SendWallActivity.this, "发布失败，请稍后再试");
+                ToastUtil.showToast(SendWallActivity.this, msg);
                 mLoadingView.hide();
+            }
+
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(SendWallActivity.this, "网络超时，请稍后再试");
             }
         });
     }

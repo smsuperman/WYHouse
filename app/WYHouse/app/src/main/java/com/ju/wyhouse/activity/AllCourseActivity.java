@@ -98,6 +98,13 @@ public class AllCourseActivity extends BaseBackActivity implements View.OnClickL
                 mLoadingView.hide();
                 ToastUtil.showToast(AllCourseActivity.this, "查询课程表网络获取失败");
             }
+
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(AllCourseActivity.this, "网络超时，请稍后再试");
+            }
         });
     }
 
@@ -193,9 +200,14 @@ public class AllCourseActivity extends BaseBackActivity implements View.OnClickL
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("查询课程表网络获取失败：" + msg);
                 mLoadingView.hide();
-                ToastUtil.showToast(AllCourseActivity.this, "查询课程表网络获取失败");
+                ToastUtil.showToast(AllCourseActivity.this, msg);
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(AllCourseActivity.this, "网络超时，请稍后再试");
             }
         });
     }

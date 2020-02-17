@@ -117,9 +117,14 @@ public class DiscussActivity extends BaseBackActivity implements View.OnClickLis
 
             @Override
             public void onFailure(String msg) {
-                ToastUtil.showToast(DiscussActivity.this, "网络超时，请稍后再试");
-                LogUtil.e("获取墙评论网络请求错误：" + msg);
+                ToastUtil.showToast(DiscussActivity.this, msg);
                 mDiscussAdapter.getLoadMoreModule().loadMoreFail();
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
+                ToastUtil.showToast(DiscussActivity.this, "网络超时，请稍后再试");
             }
         });
 
@@ -252,7 +257,12 @@ public class DiscussActivity extends BaseBackActivity implements View.OnClickLis
 
             @Override
             public void onFailure(String msg) {
-                LogUtil.e("发送评论错误：" + msg);
+                ToastUtil.showToast(DiscussActivity.this, msg);
+            }
+
+            @Override
+            public void onError(String errMsg) {
+                LogUtil.e("errMsg:" + errMsg);
                 ToastUtil.showToast(DiscussActivity.this, "网络超时，请稍后再试");
             }
         });

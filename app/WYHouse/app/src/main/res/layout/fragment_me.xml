@@ -122,7 +122,6 @@
 
             <!--设置-->
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_me_setting"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -130,7 +129,8 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:paddingRight="15dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -183,6 +183,38 @@
 
             </LinearLayout>
 
+
+            <!--关于-->
+            <LinearLayout
+                android:id="@+id/ll_bind"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_bind" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="更新绑定"
+                    android:textColor="@android:color/black" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_right_arrow" />
+
+            </LinearLayout>
+
             <!--关于-->
             <LinearLayout
                 android:id="@+id/ll_app_info"
@@ -213,6 +245,7 @@
                     android:src="@drawable/img_right_arrow" />
 
             </LinearLayout>
+
             <!--退出-->
             <LinearLayout
                 android:id="@+id/ll_me_exit"

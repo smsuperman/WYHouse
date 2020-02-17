@@ -14,5 +14,5 @@ public interface INetCallback {
 
     void onFailure(String msg);
 
-
+    void onError(String errMsg);
 }

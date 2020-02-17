@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission
         android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
@@ -27,6 +26,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.FindIdActivity"></activity>
+        <activity android:name=".activity.UpdateJwActivity" />
+        <activity android:name=".activity.ForgetJwActivity" />
+        <activity android:name=".activity.ForgetActivity" />
         <activity android:name=".activity.MeInfoActivity" />
         <activity android:name=".activity.DiscussActivity" />
         <activity android:name=".activity.SendWallActivity" />
@@ -43,7 +46,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -88,7 +90,6 @@
         <service
             android:name=".service.PushIntentService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
     </application>
 
 </manifest>
